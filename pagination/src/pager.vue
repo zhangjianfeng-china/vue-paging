@@ -100,7 +100,10 @@ export default {
       var page = this.currentPage - 1;
 
       page === 1 ? (this.prev_disabled = true) : (this.prev_disabled = false);
-
+      page === this.totalPage
+        ? (this.next_disabled = true)
+        : (this.next_disabled = false);
+        
       /** 如果总页数小于等于指定的分页条数+1  */
       /** 注意：this.pagegroup + 1 是为了避免 1,2,3,4,5,6,...7 这种情况*/
       if (this.totalPage <= this.pagegroup + 1) {
@@ -140,7 +143,7 @@ export default {
     },
     next(event) {
       var page = this.currentPage + 1;
-
+      page === 1 ? (this.prev_disabled = true) : (this.prev_disabled = false);
       page === this.totalPage
         ? (this.next_disabled = true)
         : (this.next_disabled = false);
