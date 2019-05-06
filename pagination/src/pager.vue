@@ -104,6 +104,7 @@ export default {
         ? (this.next_disabled = true)
         : (this.next_disabled = false);
         
+      this.$emit("prev", page);
       /** 如果总页数小于等于指定的分页条数+1  */
       /** 注意：this.pagegroup + 1 是为了避免 1,2,3,4,5,6,...7 这种情况*/
       if (this.totalPage <= this.pagegroup + 1) {
@@ -137,9 +138,6 @@ export default {
           this.totalPage
         ];
       }
-
-      // this.currentPage
-      this.$emit("prev", this.currentPage);
     },
     next(event) {
       var page = this.currentPage + 1;
@@ -147,7 +145,9 @@ export default {
       page === this.totalPage
         ? (this.next_disabled = true)
         : (this.next_disabled = false);
-
+        
+      this.$emit("next", page);
+      
       if (page <= 4) {
         this.currentPage = page;
         return;
@@ -185,8 +185,6 @@ export default {
         "...",
         this.totalPage
       ];
-
-      this.$emit("next", this.currentPage);
     },
     changPage(event) {
       const target = event.target;
