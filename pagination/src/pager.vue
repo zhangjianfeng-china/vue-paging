@@ -94,6 +94,28 @@ export default {
     //   default: 6
     // }
   },
+  watch: {
+    /** 监听total total数据变化重新渲染分页主组件 */
+    total() {
+      this.totalPage = Math.ceil(this.total / this.display);
+      /** 注意：this.pagegroup + 1 是为了避免 1,2,3,4,5,6,...7 这种情况*/
+      this.pagers_con = [];
+      /** 当计算的分页数小于设定的分页条数则全部显示出来 */
+      if (this.totalPage <= this.pagegroup + 1) {
+        for (let i = 0; i < this.totalPage; i++) {
+          this.pagers_con.push(i + 1);
+        }
+      }
+      /** 当计算的分页数大于设定的分页数是*/
+      if (this.totalPage > this.pagegroup + 1) {
+        for (let i = 0; i < this.pagegroup; i++) {
+          this.pagers_con.push(i + 1);
+        }
+        this.pagers_con.push("...");
+        this.pagers_con.push(this.totalPage);
+      }
+    }
+  },
   methods: {
     /** 上翻  */
     prev() {
